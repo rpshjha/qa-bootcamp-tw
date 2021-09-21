@@ -2,9 +2,11 @@ package com.rpshjha.qabootcamp;
 
 import com.rpshjha.qabootcamp.driver.DriverFactory;
 import com.rpshjha.qabootcamp.juiceshop.pages.PageObjManager;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
+import static com.rpshjha.qabootcamp.driver.DriverFactory.getDriver;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,20 +17,17 @@ import org.testng.annotations.BeforeMethod;
  */
 public class BaseTest {
 
-    protected WebDriver driver;
-    private DriverFactory driverFactory;
     protected PageObjManager pageObjManager;
 
     @BeforeMethod
     public void setup() throws Exception {
-        driverFactory = new DriverFactory();
-        driver = driverFactory.initDriver();
 
-        pageObjManager = new PageObjManager(driver);
+        DriverFactory.initDriver(BrowserType.CHROME);
+        pageObjManager = new PageObjManager(getDriver());
     }
 
     @AfterMethod
     public void tear() {
-        driverFactory.quitDriver();
+        DriverFactory.quitDriver();
     }
 }
