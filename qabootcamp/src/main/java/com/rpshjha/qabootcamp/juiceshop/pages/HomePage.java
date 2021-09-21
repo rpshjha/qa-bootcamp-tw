@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import static com.rpshjha.qabootcamp.constants.FrameworkConstants.DEFAULT_TIMEOUT;
 
 import java.util.List;
 
@@ -18,11 +19,13 @@ import java.util.List;
  */
 public class HomePage {
 
-    WebDriver driver;
+    private WebDriver driver;
+    private WebDriverWait wait;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(this.driver, DEFAULT_TIMEOUT);
     }
 
     @FindBy(xpath = "//span[contains(text(),'Account')]")
@@ -46,9 +49,7 @@ public class HomePage {
 
     public HomePage navigateToRegistrationPage() {
 
-        WebDriverWait wait = new WebDriverWait(this.driver, 10);
-
-        this.account.click();
+        wait.until(ExpectedConditions.elementToBeClickable(this.account)).click();
         this.btnLoginOnMenu.click();
 
         wait.until(ExpectedConditions.urlContains("login"));
@@ -60,7 +61,6 @@ public class HomePage {
     public boolean verifyLoggedInUserEmail(String expectedEmail) {
 
         boolean status = false;
-        WebDriverWait wait = new WebDriverWait(this.driver, 10);
         wait.until(ExpectedConditions.elementToBeClickable(this.account)).click();
 
         for (WebElement element : this.menuItems) {

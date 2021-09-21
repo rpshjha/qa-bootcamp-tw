@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+import static com.rpshjha.qabootcamp.constants.FrameworkConstants.DEFAULT_TIMEOUT;
+
 /**
  * Created by IntelliJ IDEA.
  * User: rupeshkumar
@@ -18,11 +20,13 @@ import java.util.List;
  */
 public class RegistrationPage {
 
-    WebDriver driver;
+    private WebDriver driver;
+    private WebDriverWait wait;
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(this.driver, DEFAULT_TIMEOUT);
     }
 
     @FindBy(css = "input#emailControl")
@@ -51,8 +55,6 @@ public class RegistrationPage {
 
 
     public void registerUser(String email, String password) {
-
-        WebDriverWait wait = new WebDriverWait(this.driver, 10);
 
         this.inputEmail.sendKeys(email);
         this.inputPassword.sendKeys(password);

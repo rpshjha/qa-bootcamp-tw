@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import static com.rpshjha.qabootcamp.constants.FrameworkConstants.DEFAULT_TIMEOUT;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,7 +18,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class LoginPage {
 
-    WebDriver driver;
+    private WebDriver driver;
+    private WebDriverWait wait;
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(this.driver, DEFAULT_TIMEOUT);
+    }
 
     @FindBy(css = "input#email")
     private WebElement inputEmail;
@@ -28,14 +36,7 @@ public class LoginPage {
     @FindBy(id = "loginButton")
     private WebElement btnLogin;
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
     public void loginUser(String email, String password) {
-
-        WebDriverWait wait = new WebDriverWait(this.driver, 10);
 
         this.inputEmail.sendKeys(email);
         this.inputPassword.sendKeys(password);

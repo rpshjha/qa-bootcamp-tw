@@ -29,9 +29,9 @@ public class DriverFactory {
         if (driver == null) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-            driver.get(BASE_URL);
             driver.manage().window().maximize();
             driver.manage().timeouts().pageLoadTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            driver.get(BASE_URL);
         }
         return driver;
     }
