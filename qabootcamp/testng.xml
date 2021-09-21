@@ -2,11 +2,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true"
-          name="/Users/rupeshkumar/Downloads/code/qabootcamp/qa-bootcamp-tw/qabootcamp/src/test/java/com/rpshjha/qabootcamp/QabootcampApplicationTests.java">
+          name="/Users/rupeshkumar/Downloads/code/qabootcamp/qa-bootcamp-tw/qabootcamp/src/test/java/com/rpshjha/qabootcamp/JuiceShopTests.java">
         <classes>
-            <class name="com.rpshjha.qabootcamp.QabootcampApplicationTests">
+            <class name="com.rpshjha.qabootcamp.JuiceShopTests">
                 <methods>
-                    <include name="contextLoads"/>
+                    <include name="test1"/>
                 </methods>
             </class>
         </classes>
