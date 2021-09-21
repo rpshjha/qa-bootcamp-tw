@@ -10,7 +10,9 @@ package com.rpshjha.qabootcamp.helper;
 public class TestHelper {
 
     public static String getRandomEmail() {
-        return "dummy" + System.currentTimeMillis() + "@yopmail.com";
+        String tempEmail = "dummy" + System.currentTimeMillis() + "@yopmail.com";
+        System.out.println("generated email is " + tempEmail);
+        return tempEmail;
     }
 
     public static String getRandomPassword() {

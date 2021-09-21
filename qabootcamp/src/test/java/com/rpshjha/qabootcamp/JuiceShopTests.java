@@ -1,8 +1,8 @@
 package com.rpshjha.qabootcamp;
 
-import com.rpshjha.qabootcamp.juiceshop.pages.PageObjManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import static com.rpshjha.qabootcamp.helper.TestHelper.getRandomEmail;
 import static com.rpshjha.qabootcamp.helper.TestHelper.getRandomPassword;
 
@@ -20,7 +20,6 @@ public class JuiceShopTests extends BaseTest {
     void registerUserAndLogin() {
 
         String tempEmail = getRandomEmail();
-        System.out.println("email id to be registered is " + tempEmail);
 
         pageObjManager.getHomePage().navigateToRegistrationPage();
 
