@@ -1,10 +1,10 @@
 package com.rpshjha.qabootcamp;
 
-import com.rpshjha.qabootcamp.juiceshop.pages.HomePage;
-import com.rpshjha.qabootcamp.juiceshop.pages.LoginPage;
-import com.rpshjha.qabootcamp.juiceshop.pages.RegistrationPage;
+import com.rpshjha.qabootcamp.juiceshop.pages.PageObjManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import static com.rpshjha.qabootcamp.helper.TestHelper.getRandomEmail;
+import static com.rpshjha.qabootcamp.helper.TestHelper.getRandomPassword;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,11 +15,6 @@ import org.testng.annotations.Test;
  */
 public class JuiceShopTests extends BaseTest {
 
-    public String getRandomEmail() {
-        return "dummy" + System.currentTimeMillis() + "@yopmail.com";
-    }
-
-    String password = "Admin@123";
 
     @Test
     void registerUserAndLogin() {
@@ -27,18 +22,13 @@ public class JuiceShopTests extends BaseTest {
         String tempEmail = getRandomEmail();
         System.out.println("email id to be registered is " + tempEmail);
 
-        HomePage homePage = new HomePage(driver);
+        pageObjManager.getHomePage().navigateToRegistrationPage();
 
-        homePage.dismissPopup();
-        homePage.navigateToRegistrationPage();
+        pageObjManager.getRegistrationPage().registerUser(tempEmail, getRandomPassword());
 
-        RegistrationPage registrationPage = new RegistrationPage(driver);
-        registrationPage.registerUser(tempEmail, password);
+        pageObjManager.getLoginPage().loginUser(tempEmail, getRandomPassword());
 
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.loginUser(tempEmail, password);
-
-        Assert.assertTrue(homePage.verifyLoggedInUserEmail(tempEmail), "verifying if user login is successful");
+        Assert.assertTrue(pageObjManager.getHomePage().verifyLoggedInUserEmail(tempEmail), "verifying if user login is successful");
     }
 
 }

@@ -3,10 +3,7 @@ package com.rpshjha.qabootcamp.juiceshop.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import static com.rpshjha.qabootcamp.constants.FrameworkConstants.DEFAULT_TIMEOUT;
 
 import java.util.List;
 
@@ -17,15 +14,10 @@ import java.util.List;
  * Time: 12:25 PM
  * To change this template use File | Settings | File and Code Templates.
  */
-public class HomePage {
-
-    private WebDriver driver;
-    private WebDriverWait wait;
+public class HomePage extends PageObjManager {
 
     public HomePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(this.driver, DEFAULT_TIMEOUT);
+        super(driver);
     }
 
     @FindBy(xpath = "//span[contains(text(),'Account')]")
@@ -49,8 +41,10 @@ public class HomePage {
 
     public HomePage navigateToRegistrationPage() {
 
+        dismissPopup();
+
         wait.until(ExpectedConditions.elementToBeClickable(this.account)).click();
-        this.btnLoginOnMenu.click();
+        wait.until(ExpectedConditions.elementToBeClickable(this.btnLoginOnMenu)).click();
 
         wait.until(ExpectedConditions.urlContains("login"));
         wait.until(ExpectedConditions.elementToBeClickable(this.btnNotYetACustomer)).click();
@@ -60,16 +54,8 @@ public class HomePage {
 
     public boolean verifyLoggedInUserEmail(String expectedEmail) {
 
-        boolean status = false;
         wait.until(ExpectedConditions.elementToBeClickable(this.account)).click();
-
-        for (WebElement element : this.menuItems) {
-            if (element.getText().contains(expectedEmail)) {
-                status = true;
-                break;
-            }
-        }
-        return status;
+        return this.menuItems.stream().anyMatch(i -> i.getText().contains(expectedEmail));
     }
 
 

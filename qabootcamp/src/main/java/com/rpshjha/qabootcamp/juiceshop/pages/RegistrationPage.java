@@ -3,13 +3,9 @@ package com.rpshjha.qabootcamp.juiceshop.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-
-import static com.rpshjha.qabootcamp.constants.FrameworkConstants.DEFAULT_TIMEOUT;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,15 +14,10 @@ import static com.rpshjha.qabootcamp.constants.FrameworkConstants.DEFAULT_TIMEOU
  * Time: 1:26 PM
  * To change this template use File | Settings | File and Code Templates.
  */
-public class RegistrationPage {
-
-    private WebDriver driver;
-    private WebDriverWait wait;
+public class RegistrationPage extends PageObjManager {
 
     public RegistrationPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(this.driver, DEFAULT_TIMEOUT);
+        super(driver);
     }
 
     @FindBy(css = "input#emailControl")
