@@ -43,5 +43,10 @@ public class LoginPage {
 
         wait.until(d -> ((JavascriptExecutor) d).executeScript("return document.readyState").toString().equals("complete"));
         wait.until(ExpectedConditions.urlContains("search"));
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ignore) {
+        }
     }
 }

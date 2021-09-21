@@ -57,14 +57,14 @@ public class HomePage {
         return this;
     }
 
-    public boolean verifyLoggedInUserEmail(String email) {
+    public boolean verifyLoggedInUserEmail(String expectedEmail) {
 
         boolean status = false;
         WebDriverWait wait = new WebDriverWait(this.driver, 10);
         wait.until(ExpectedConditions.elementToBeClickable(this.account)).click();
 
         for (WebElement element : this.menuItems) {
-            if (element.getText().contains(email)) {
+            if (element.getText().contains(expectedEmail)) {
                 status = true;
                 break;
             }
