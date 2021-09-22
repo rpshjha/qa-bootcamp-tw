@@ -5,3 +5,4 @@ Prerequisite
 Java
 Maven
 TestNG
+Selenium
