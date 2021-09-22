@@ -1,0 +1,25 @@
+groups:
+- name: services instances down 
+  rules: 
+  - alert: flight_details_instance_down
+    expr: up{job="flight-details"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Instance {{$labels.instance}} is not running."
+  - alert: user_details_instance_down
+    expr: up{job="user-details"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Instance {{$labels.instance}} is not running."
+  - alert: reservation_instance_down
+    expr: up{job="reservation"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Instance {{$labels.instance}} is not running."
+

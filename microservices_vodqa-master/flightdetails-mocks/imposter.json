@@ -1,0 +1,58 @@
+{
+	"imposters": [{
+		"port": 3222,
+		"protocol": "http",
+		"stubs": [{
+				"predicates": [{
+					"equals": {
+						"method": "Get",
+						"path": "/flightdetails/findAllFlights"
+					}
+				}],
+				"responses": [{
+					"is": {
+						"headers": {
+							"Content-Type": "application/json"
+						},
+						"statusCode": 200,
+						"body": "<%- stringify(filename, 'findAllFlightsResponse.json') %>"
+					}
+				}]
+			},
+			{
+				"predicates": [{
+					"equals": {
+						"method": "Get",
+						"path": "/flightdetails/findFlight/1"
+					}
+				}],
+				"responses": [{
+					"is": {
+						"headers": {
+							"Content-Type": "application/json"
+						},
+						"statusCode": 200,
+						"body": "<%- stringify(filename, 'findFlightbyIdResponse.json') %>"
+					}
+				}]
+			},
+			{
+				"predicates": [{
+					"equals": {
+						"method": "Post",
+						"path": "/flightdetails/findFlights"
+					}
+				}],
+				"responses": [{
+					"is": {
+						"headers": {
+							"Content-Type": "application/json"
+						},
+						"statusCode": 200,
+						"body": "<%- stringify(filename, 'findAllFlightsResponse.json') %>"
+					}
+				}]
+			}
+		]
+	}]
+}

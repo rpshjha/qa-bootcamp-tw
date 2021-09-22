@@ -1,0 +1,35 @@
+version: '2.1'
+services:
+  userdetails:
+    networks:
+      - abc
+    image: userdetails
+    container_name: "userdetails"
+    ports:
+     - "7070:7070"
+    volumes:
+      - ./logs:/userdetails/logs
+    links:
+      - userdetails-mysql
+    depends_on:
+      userdetails-mysql:
+                        condition: service_healthy
+  userdetails-mysql:
+    networks:
+      - abc
+    image: mysql:5.7.17
+    container_name: "userdetails-mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DB=userdetails
+    healthcheck:
+            test: "/usr/bin/mysql --user=root --password=test --execute \"SHOW DATABASES;\""
+            interval: 2s
+            timeout: 20s
+            retries: 10
+    ports:
+      - "3307:3306"
+networks:
+  abc:
+    external: true
+

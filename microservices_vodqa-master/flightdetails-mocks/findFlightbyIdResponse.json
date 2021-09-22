@@ -1,0 +1,9 @@
+{
+    "flightNumber": "Mock-101",
+    "operatingAirlines": "Mock airlines",
+    "departureCity": "Mock-dep",
+    "arrivalCity": "Mock-arrival",
+    "dateOfDeparture": 1517788800000,
+    "estimatedDepartureTime": 1517800447000,
+    "id": 1
+  }

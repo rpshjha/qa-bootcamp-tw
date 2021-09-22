@@ -1,0 +1,24 @@
+# global:
+#   smtp_smarthost: 'aspmx.l.google.com:25'
+#   smtp_from: 'vivek.cia@gmail.com'
+#   smtp_auth_username: 'vivek.cia'
+#   smtp_auth_password: 'Welcome@29'
+#   smtp_require_tls: false
+
+templates:
+- '/etc/alertmanager/template/*.tmpl'
+
+route:
+  repeat_interval: 1m
+  receiver: email-me
+
+receivers:
+- name: email-me
+  email_configs:
+  - to: 'vodqa.ggn@mailinator.com'
+    from: 'vodqa.ggn@gmail.com'
+    smarthost: smtp.gmail.com:587
+    auth_username: 'vodqa.ggn@gmail.com'
+    auth_identity: 'vodqa.ggn@gmail.com'
+    auth_password: 'Welcome@1'    
+    

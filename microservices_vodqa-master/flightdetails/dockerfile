@@ -1,0 +1,8 @@
+FROM openjdk:8-jdk-alpine
+
+COPY  ./target/flightdetails-0.0.1-SNAPSHOT.jar /flightdetails/
+WORKDIR /flightdetails
+
+EXPOSE 9090
+
+CMD java -jar flightdetails-0.0.1-SNAPSHOT.jar

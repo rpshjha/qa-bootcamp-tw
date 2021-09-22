@@ -1,0 +1,15 @@
+FROM mhart/alpine-node:14
+
+EXPOSE 2526
+EXPOSE 4222
+CMD mb start --configfile flightdetails.json
+
+COPY . /proxy-mode
+
+WORKDIR /proxy-mode
+
+ENV MOUNTEBANK_VERSION=1.15.0
+
+RUN npm install -g mountebank@${MOUNTEBANK_VERSION} --production \
+ && npm cache clean --force 2>/dev/null \
+ && rm -rf /tmp/npm*

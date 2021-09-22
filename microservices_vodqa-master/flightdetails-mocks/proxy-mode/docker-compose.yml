@@ -1,0 +1,13 @@
+version: '2.1'
+services:
+  proxy-mode:
+    networks:
+      - abc
+    image: proxy-mode
+    container_name: "proxy-mode"
+    ports:
+     - "2526:2525"
+     - "4222:4222"
+networks:
+  abc:
+    external: true

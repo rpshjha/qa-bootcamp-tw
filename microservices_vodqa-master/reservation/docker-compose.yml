@@ -1,0 +1,35 @@
+version: '2.1'
+services:
+  reservation:
+    networks:
+      - abc
+    image: reservation
+    container_name: "reservation"
+    ports:
+     - "6060:6060"
+    volumes:
+      - ./logs:/reservation/logs
+    links:
+      - reservation-mysql
+    depends_on:
+      reservation-mysql:
+                        condition: service_healthy
+  reservation-mysql:
+    networks:
+      - abc
+    image: mysql:5.7.17
+    container_name: "reservation-mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DB=reservation
+    healthcheck:
+            test: "/usr/bin/mysql --user=root --password=test --execute \"SHOW DATABASES;\""
+            interval: 2s
+            timeout: 20s
+            retries: 10
+    ports:
+      - "3309:3306"
+networks:
+  abc:
+    external: true
+

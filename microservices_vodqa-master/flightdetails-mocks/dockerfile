@@ -1,0 +1,16 @@
+FROM mhart/alpine-node:14
+
+EXPOSE 2525
+EXPOSE 3222
+CMD mb start --configfile ./imposter.json
+
+
+COPY . /flightdetails-mocks
+
+WORKDIR /flightdetails-mocks
+
+ENV MOUNTEBANK_VERSION=1.15.0
+
+RUN npm install -g mountebank@${MOUNTEBANK_VERSION} --production \
+ && npm cache clean --force 2>/dev/null \
+ && rm -rf /tmp/npm*

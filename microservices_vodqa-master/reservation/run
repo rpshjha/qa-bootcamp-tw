@@ -1,0 +1,23 @@
+#!/bin/bash
+
+dev()
+{
+rm -rf target
+./mvnw clean package -DskipTests
+docker build . -t reservation
+docker-compose -f docker-compose.yml up
+}
+
+
+usage() {
+    echo "Usage: $0 dev"
+    exit 1
+}
+
+CMD=${1:-}
+SERVICE_NAME=${2:-}
+shift || true
+case ${CMD} in
+  dev) dev;;
+  *) usage ;;
+esac

@@ -1,0 +1,13 @@
+version: '2.1'
+services:
+  flightdetails-mocks:
+    networks:
+      - abc
+    image: flightdetails-mocks
+    container_name: "flightdetails-mocks"
+    ports:
+     - "2525:2525"
+     - "3222:3222"
+networks:
+  abc:
+    external: true

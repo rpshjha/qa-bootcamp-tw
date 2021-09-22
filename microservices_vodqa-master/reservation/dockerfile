@@ -1,0 +1,11 @@
+FROM openjdk:8-jdk-alpine
+
+COPY  ./target/reservation-0.0.1-SNAPSHOT.jar /reservation/
+
+WORKDIR /reservation
+
+RUN chmod -R 777 .
+
+EXPOSE 6060
+
+CMD java -jar reservation-0.0.1-SNAPSHOT.jar
