@@ -1,8 +1,8 @@
 package com.rpshjha.qabootcamp.driver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 
@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.rpshjha.qabootcamp.constants.FrameworkConstants.BASE_URL;
 import static com.rpshjha.qabootcamp.constants.FrameworkConstants.DEFAULT_TIMEOUT;
+import static com.rpshjha.qabootcamp.driver.GetDriverExecutable.getPath;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,16 +28,19 @@ public class DriverFactory {
         switch (browserName) {
 
             case BrowserType.CHROME:
-                WebDriverManager.chromedriver().setup();
+                System.setProperty("webdriver.chrome.driver", getPath(browserName));
                 WEB_DRIVER_THREAD_LOCAL.set(new ChromeDriver());
                 break;
             case BrowserType.FIREFOX:
-                WebDriverManager.firefoxdriver().setup();
+                System.setProperty("webdriver.gecko.driver", getPath(browserName));
                 WEB_DRIVER_THREAD_LOCAL.set(new FirefoxDriver());
+                break;
+            case BrowserType.EDGE:
+                System.setProperty("webdriver.edge.driver", getPath(browserName));
+                WEB_DRIVER_THREAD_LOCAL.set(new EdgeDriver());
                 break;
             default:
                 System.err.println("Invalid Browser Type ..!!");
-                break;
         }
 
         WEB_DRIVER_THREAD_LOCAL.get().manage().window().maximize();
