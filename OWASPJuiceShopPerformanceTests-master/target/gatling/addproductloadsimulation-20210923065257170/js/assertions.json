@@ -1,0 +1,10 @@
+{
+  "simulation": "simulations.AddProductLoadSimulation",
+  "simulationId": "addproductloadsimulation",
+  "start": 1632379977170,
+  "description": "",
+  "scenarios": ["Add Prodcut to Cart Simulation"],
+  "assertions": [
+
+  ]
+}
