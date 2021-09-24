@@ -1,10 +1,15 @@
 package com.example.tests;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.example.models.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -13,21 +18,27 @@ import static org.hamcrest.Matchers.*;
 public class JuiceShopTest extends BaseTest {
 
     @Test
-    public void createCustomerSuccessfully() {
-        int UserId = given().spec(requestSpecification)
-                .and()
-                .body(customerBuilder())
-                .post("api/users")
-                .then()
-                .assertThat().statusCode(201)
-                .extract().path("data.id");
+    public void createCustomerSuccessfully(TestInfo testInfo) {
 
-//        given().spec(requestSpecification)
-//                .and()
-//                .body(securityAnswerBuilder(UserId, 1, "asdf"))
-//                .post("api/SecurityAnswers")
-//                .then()
-//                .assertThat().statusCode(201);
+        ExtentTest extentTest = extentReports.createTest(testInfo.getDisplayName());
+        extentTest.log(Status.INFO, testInfo.getDisplayName() + " - started");
+
+        try {
+            int UserId = given().spec(requestSpecification)
+                    .and()
+                    .body(customerBuilder())
+                    .post("api/users")
+                    .then()
+                    .assertThat().statusCode(201)
+                    .extract().path("data.id");
+        } catch (Exception e) {
+
+            extentTest.fail(MarkupHelper.createLabel(e.getMessage(), ExtentColor.RED));
+            System.out.println("tests " + testInfo.getDisplayName() + " failed");
+            System.out.println("exception => " + e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+
     }
 
     @Test
@@ -38,12 +49,12 @@ public class JuiceShopTest extends BaseTest {
                 .body("status", is("success"))
                 .body("data", is(not(empty())))
                 .body("data[0].id", is(not(notANumber())))
-                .body("data[0].image", containsString(".jpg"));
+                .body("data[0].image", containsString(".jpeg"));
     }
 
     @Test
     public void addProductToCart() {
-        Authentication authentication = login("asdf@qwer.com", "password")
+        Authentication authentication = login("Ezra.Gleichner3@yahoo.com", "password")
                 .then()
                 .assertThat().statusCode(200)
                 .extract().as(LoginResponse.class).getAuthentication();
